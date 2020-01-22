@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-no-credentials",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An ESlint plugin checking for any hardcoded credentials",
   "main": "build/index.js",
   "scripts": {
@@ -13,7 +13,18 @@
     "type": "git",
     "url": "git+https://github.com/oprogramador/eslint-plugin-no-credentials.git"
   },
-  "keywords": ["eslint","plugin","hardcoded","credentials","secrets","secret","token","tokens","password","passwords"],
+  "keywords": [
+    "eslint",
+    "plugin",
+    "hardcoded",
+    "credentials",
+    "secrets",
+    "secret",
+    "token",
+    "tokens",
+    "password",
+    "passwords"
+  ],
   "author": "oprogramador",
   "license": "MIT",
   "bugs": {
