@@ -14,7 +14,7 @@ describe('splitStringIntoWords', () => {
     ]);
   });
 
-  it('splits with space and passed delimiters', () => {
+  it('splits with passed delimiters', () => {
     const string = 'lorem-ipsum doLor sit@amet.com foo/bar/baz-lorem ipsum';
 
     const result = splitStringIntoWords(string, { delimiters: [' ', '-', '@', '/'] });
@@ -30,6 +30,50 @@ describe('splitStringIntoWords', () => {
       'baz',
       'lorem',
       'ipsum',
+    ]);
+  });
+
+  it('does not split with number of words below the minimum', () => {
+    const string = 'FOO_BAR';
+
+    const result = splitStringIntoWords(string, {
+      delimiters: ['_'],
+      minimumNumberOfWords: 3,
+    });
+
+    expect(result).to.deep.equal([
+      'FOO_BAR',
+    ]);
+  });
+
+  it('splits with number of words equal to the minimum', () => {
+    const string = 'FOO_BAR_BAZ';
+
+    const result = splitStringIntoWords(string, {
+      delimiters: ['_'],
+      minimumNumberOfWords: 3,
+    });
+
+    expect(result).to.deep.equal([
+      'FOO',
+      'BAR',
+      'BAZ',
+    ]);
+  });
+
+  it('splits with number of words higher than the minimum', () => {
+    const string = 'FOO_BAR_BAZ_LOREM';
+
+    const result = splitStringIntoWords(string, {
+      delimiters: ['_'],
+      minimumNumberOfWords: 3,
+    });
+
+    expect(result).to.deep.equal([
+      'FOO',
+      'BAR',
+      'BAZ',
+      'LOREM',
     ]);
   });
 });
