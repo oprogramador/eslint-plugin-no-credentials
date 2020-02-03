@@ -13,4 +13,23 @@ describe('splitStringIntoWords', () => {
       'sit@amet.com',
     ]);
   });
+
+  it('splits with space and passed delimiters', () => {
+    const string = 'lorem-ipsum doLor sit@amet.com foo/bar/baz-lorem ipsum';
+
+    const result = splitStringIntoWords(string, { delimiters: [' ', '-', '@', '/'] });
+
+    expect(result).to.deep.equal([
+      'lorem',
+      'ipsum',
+      'doLor',
+      'sit',
+      'amet.com',
+      'foo',
+      'bar',
+      'baz',
+      'lorem',
+      'ipsum',
+    ]);
+  });
 });
