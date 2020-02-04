@@ -1,10 +1,8 @@
 function joinWords(words, minimumWordLength) {
   const result = words.reduce(
-    ({ newWords, builtWord }, word) => (
-      builtWord.length < minimumWordLength
-        ? ({ builtWord: builtWord + word, newWords })
-        : ({ builtWord: word, newWords: [...newWords, builtWord] })
-    ),
+    ({ newWords, builtWord }, word) => (builtWord.length < minimumWordLength
+      ? ({ builtWord: builtWord + word, newWords })
+      : ({ builtWord: word, newWords: [...newWords, builtWord] })),
     { builtWord: '', newWords: [] },
   );
 
@@ -14,34 +12,38 @@ function joinWords(words, minimumWordLength) {
   ];
 }
 
-function splitRecursively(string, options) {
+function splitRecursively(originalString, string, options) {
   const {
     delimiters = [' '],
     minimumWordLength,
+    minimumNumberOfWords,
+    shouldSplitCamelCase,
   } = options;
   if (!delimiters.length) {
-    const words = string.split(' ');
+    let words = string.split(' ');
+    if (shouldSplitCamelCase) {
+      words = words.map(word => word.split(/(?=[A-Z])/g)).flat();
+    }
     if (minimumWordLength) {
-      return joinWords(words, minimumWordLength);
+      words = joinWords(words, minimumWordLength);
+    }
+
+    if (words.length < minimumNumberOfWords) {
+      return [originalString];
     }
 
     return words;
   }
 
-  return splitRecursively(string.split(delimiters[0]).join(' '), { ...options, delimiters: delimiters.slice(1) });
+  return splitRecursively(
+    originalString,
+    string.split(delimiters[0]).join(' '),
+    { ...options, delimiters: delimiters.slice(1) },
+  );
 }
 
 function splitStringIntoWords(string, options = {}) {
-  const {
-    delimiters = [' '],
-    minimumNumberOfWords,
-  } = options;
-
-  if (string.split('').filter(character => delimiters.includes(character)).length < minimumNumberOfWords - 1) {
-    return [string];
-  }
-
-  return splitRecursively(string, options);
+  return splitRecursively(string, string, options);
 }
 
 export default splitStringIntoWords;

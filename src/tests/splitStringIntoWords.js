@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import expect from 'eslint-plugin-no-credentials/tests/expect';
 import splitStringIntoWords from 'eslint-plugin-no-credentials/splitStringIntoWords';
 
@@ -224,6 +225,319 @@ describe('splitStringIntoWords', () => {
 
     expect(result).to.deep.equal([
       'FOOBARBAZLOREM',
+    ]);
+  });
+
+  it('does not split camelCase by default', () => {
+    const string = 'fooBarBazLorem';
+
+    const result = splitStringIntoWords(string);
+
+    expect(result).to.deep.equal([
+      'fooBarBazLorem',
+    ]);
+  });
+
+  it('splits camelCase', () => {
+    const string = 'fooBarBazLorem';
+
+    const result = splitStringIntoWords(string, {
+      shouldSplitCamelCase: true,
+    });
+
+    expect(result).to.deep.equal([
+      'foo',
+      'Bar',
+      'Baz',
+      'Lorem',
+    ]);
+  });
+
+  it('splits camelCase with minimumWordLength 2', () => {
+    const string = 'fooBarBazLorem';
+
+    const result = splitStringIntoWords(string, {
+      minimumWordLength: 2,
+      shouldSplitCamelCase: true,
+    });
+
+    expect(result).to.deep.equal([
+      'foo',
+      'Bar',
+      'Baz',
+      'Lorem',
+    ]);
+  });
+
+  it('splits camelCase with minimumWordLength 3', () => {
+    const string = 'fooBarBazLorem';
+
+    const result = splitStringIntoWords(string, {
+      minimumWordLength: 3,
+      shouldSplitCamelCase: true,
+    });
+
+    expect(result).to.deep.equal([
+      'foo',
+      'Bar',
+      'Baz',
+      'Lorem',
+    ]);
+  });
+
+  it('splits camelCase with minimumWordLength 4', () => {
+    const string = 'fooBarBazLorem';
+
+    const result = splitStringIntoWords(string, {
+      minimumWordLength: 4,
+      shouldSplitCamelCase: true,
+    });
+
+    expect(result).to.deep.equal([
+      'fooBar',
+      'BazLorem',
+    ]);
+  });
+
+  it('splits camelCase with minimumWordLength 7', () => {
+    const string = 'fooBarBazLorem';
+
+    const result = splitStringIntoWords(string, {
+      minimumWordLength: 7,
+      shouldSplitCamelCase: true,
+    });
+
+    expect(result).to.deep.equal([
+      'fooBarBaz',
+      'Lorem',
+    ]);
+  });
+
+  it('does not split camelCase with number of words below minimumNumberOfWords', () => {
+    const string = 'fooBarBazLorem';
+
+    const result = splitStringIntoWords(string, {
+      minimumNumberOfWords: 5,
+      shouldSplitCamelCase: true,
+    });
+
+    expect(result).to.deep.equal([
+      'fooBarBazLorem',
+    ]);
+  });
+
+  it('splits camelCase with number of words equal to minimumNumberOfWords', () => {
+    const string = 'fooBarBazLorem';
+
+    const result = splitStringIntoWords(string, {
+      minimumNumberOfWords: 4,
+      shouldSplitCamelCase: true,
+    });
+
+    expect(result).to.deep.equal([
+      'foo',
+      'Bar',
+      'Baz',
+      'Lorem',
+    ]);
+  });
+
+  it('splits camelCase with number of words above minimumNumberOfWords', () => {
+    const string = 'fooBarBazLorem';
+
+    const result = splitStringIntoWords(string, {
+      minimumNumberOfWords: 3,
+      shouldSplitCamelCase: true,
+    });
+
+    expect(result).to.deep.equal([
+      'foo',
+      'Bar',
+      'Baz',
+      'Lorem',
+    ]);
+  });
+
+  it('splits camelCase and by delimiter in the same time', () => {
+    const string = 'fooBar bazLorem';
+
+    const result = splitStringIntoWords(string, {
+      shouldSplitCamelCase: true,
+    });
+
+    expect(result).to.deep.equal([
+      'foo',
+      'Bar',
+      'baz',
+      'Lorem',
+    ]);
+  });
+
+  it('splits camelCase and by many delimiters in the same time', () => {
+    const string = 'fooBar-bazLorem-foo2_bar3 loremIpsumDolorSitAmet_foo3';
+
+    const result = splitStringIntoWords(string, {
+      delimiters: ['-', '_', ' '],
+      shouldSplitCamelCase: true,
+    });
+
+    expect(result).to.deep.equal([
+      'foo',
+      'Bar',
+      'baz',
+      'Lorem',
+      'foo2',
+      'bar3',
+      'lorem',
+      'Ipsum',
+      'Dolor',
+      'Sit',
+      'Amet',
+      'foo3',
+    ]);
+  });
+
+  it('splits camelCase and by many delimiters in the same time - number of words above minimumWordLength', () => {
+    const string = 'fooBar-bazLorem-foo2_bar3 loremIpsumDolorSitAmet_foo3';
+
+    const result = splitStringIntoWords(string, {
+      delimiters: ['-', '_', ' '],
+      minimumNumberOfWords: 11,
+      shouldSplitCamelCase: true,
+    });
+
+    expect(result).to.deep.equal([
+      'foo',
+      'Bar',
+      'baz',
+      'Lorem',
+      'foo2',
+      'bar3',
+      'lorem',
+      'Ipsum',
+      'Dolor',
+      'Sit',
+      'Amet',
+      'foo3',
+    ]);
+  });
+
+  it('splits camelCase and by many delimiters in the same time - number of words equal to minimumWordLength', () => {
+    const string = 'fooBar-bazLorem-foo2_bar3 loremIpsumDolorSitAmet_foo3';
+
+    const result = splitStringIntoWords(string, {
+      delimiters: ['-', '_', ' '],
+      minimumNumberOfWords: 12,
+      shouldSplitCamelCase: true,
+    });
+
+    expect(result).to.deep.equal([
+      'foo',
+      'Bar',
+      'baz',
+      'Lorem',
+      'foo2',
+      'bar3',
+      'lorem',
+      'Ipsum',
+      'Dolor',
+      'Sit',
+      'Amet',
+      'foo3',
+    ]);
+  });
+
+  it('does not split camelCase and by many delimiters in the same time - number of words below minimumWordLength', () => {
+    const string = 'fooBar-bazLorem-foo2_bar3 loremIpsumDolorSitAmet_foo3';
+
+    const result = splitStringIntoWords(string, {
+      delimiters: ['-', '_', ' '],
+      minimumNumberOfWords: 13,
+      shouldSplitCamelCase: true,
+    });
+
+    expect(result).to.deep.equal([
+      'fooBar-bazLorem-foo2_bar3 loremIpsumDolorSitAmet_foo3',
+    ]);
+  });
+
+  it('splits camelCase and by many delimiters in the same time - minimumWordLength', () => {
+    const string = 'fooBar-bazLorem-fo2_bar3 loremIpsumDolorSitAmet_foo3';
+
+    const result = splitStringIntoWords(string, {
+      delimiters: ['-', '_', ' '],
+      minimumWordLength: 4,
+      shouldSplitCamelCase: true,
+    });
+
+    expect(result).to.deep.equal([
+      'fooBar',
+      'bazLorem',
+      'fo2bar3',
+      'lorem',
+      'Ipsum',
+      'Dolor',
+      'SitAmet',
+      'foo3',
+    ]);
+  });
+
+  it('splits camelCase and by many delimiters in the same time - minimumWordLength, number of words above minimumNumberOfWords', () => {
+    const string = 'fooBar-bazLorem-fo2_bar3 loremIpsumDolorSitAmet_foo3';
+
+    const result = splitStringIntoWords(string, {
+      delimiters: ['-', '_', ' '],
+      minimumNumberOfWords: 7,
+      minimumWordLength: 4,
+      shouldSplitCamelCase: true,
+    });
+
+    expect(result).to.deep.equal([
+      'fooBar',
+      'bazLorem',
+      'fo2bar3',
+      'lorem',
+      'Ipsum',
+      'Dolor',
+      'SitAmet',
+      'foo3',
+    ]);
+  });
+
+  it('splits camelCase and by many delimiters in the same time - minimumWordLength, number of words equal to minimumNumberOfWords', () => {
+    const string = 'fooBar-bazLorem-fo2_bar3 loremIpsumDolorSitAmet_foo3';
+
+    const result = splitStringIntoWords(string, {
+      delimiters: ['-', '_', ' '],
+      minimumNumberOfWords: 8,
+      minimumWordLength: 4,
+      shouldSplitCamelCase: true,
+    });
+
+    expect(result).to.deep.equal([
+      'fooBar',
+      'bazLorem',
+      'fo2bar3',
+      'lorem',
+      'Ipsum',
+      'Dolor',
+      'SitAmet',
+      'foo3',
+    ]);
+  });
+
+  it('does not split camelCase and by many delimiters in the same time - minimumWordLength, number of words below minimumNumberOfWords', () => {
+    const string = 'fooBar-bazLorem-fo2_bar3 loremIpsumDolorSitAmet_foo3';
+
+    const result = splitStringIntoWords(string, {
+      delimiters: ['-', '_', ' '],
+      minimumNumberOfWords: 9,
+      minimumWordLength: 4,
+      shouldSplitCamelCase: true,
+    });
+
+    expect(result).to.deep.equal([
+      'fooBar-bazLorem-fo2_bar3 loremIpsumDolorSitAmet_foo3',
     ]);
   });
 });
