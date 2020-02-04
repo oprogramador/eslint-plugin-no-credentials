@@ -76,4 +76,154 @@ describe('splitStringIntoWords', () => {
       'LOREM',
     ]);
   });
+
+  it('works for the minimum length 0', () => {
+    const string = 'FOO BAR BAZ LOREM';
+
+    const result = splitStringIntoWords(string, {
+      minimumWordLength: 0,
+    });
+
+    expect(result).to.deep.equal([
+      'FOO',
+      'BAR',
+      'BAZ',
+      'LOREM',
+    ]);
+  });
+
+  it('works for the minimum length 1', () => {
+    const string = 'FOO BAR BAZ LOREM';
+
+    const result = splitStringIntoWords(string, {
+      minimumWordLength: 1,
+    });
+
+    expect(result).to.deep.equal([
+      'FOO',
+      'BAR',
+      'BAZ',
+      'LOREM',
+    ]);
+  });
+
+  it('does not join words for length above the minimum length', () => {
+    const string = 'FOO BAR BAZ LOREM';
+
+    const result = splitStringIntoWords(string, {
+      minimumWordLength: 2,
+    });
+
+    expect(result).to.deep.equal([
+      'FOO',
+      'BAR',
+      'BAZ',
+      'LOREM',
+    ]);
+  });
+
+  it('does not join words for length at least the minimum length', () => {
+    const string = 'FOO BAR BAZ LOREM';
+
+    const result = splitStringIntoWords(string, {
+      minimumWordLength: 3,
+    });
+
+    expect(result).to.deep.equal([
+      'FOO',
+      'BAR',
+      'BAZ',
+      'LOREM',
+    ]);
+  });
+
+  it('join words below the minimum length 4', () => {
+    const string = 'FOO BAR BAZ LOREM';
+
+    const result = splitStringIntoWords(string, {
+      minimumWordLength: 4,
+    });
+
+    expect(result).to.deep.equal([
+      'FOOBAR',
+      'BAZLOREM',
+    ]);
+  });
+
+  it('join words below the minimum length 5', () => {
+    const string = 'FOO BAR BAZ LOREM';
+
+    const result = splitStringIntoWords(string, {
+      minimumWordLength: 5,
+    });
+
+    expect(result).to.deep.equal([
+      'FOOBAR',
+      'BAZLOREM',
+    ]);
+  });
+
+  it('join words below the minimum length 6', () => {
+    const string = 'FOO BAR BAZ LOREM';
+
+    const result = splitStringIntoWords(string, {
+      minimumWordLength: 6,
+    });
+
+    expect(result).to.deep.equal([
+      'FOOBAR',
+      'BAZLOREM',
+    ]);
+  });
+
+  it('join words below the minimum length 7', () => {
+    const string = 'FOO BAR BAZ LOREM';
+
+    const result = splitStringIntoWords(string, {
+      minimumWordLength: 7,
+    });
+
+    expect(result).to.deep.equal([
+      'FOOBARBAZ',
+      'LOREM',
+    ]);
+  });
+
+  it('join words below the minimum length 8', () => {
+    const string = 'FOO BAR BAZ LOREM';
+
+    const result = splitStringIntoWords(string, {
+      minimumWordLength: 8,
+    });
+
+    expect(result).to.deep.equal([
+      'FOOBARBAZ',
+      'LOREM',
+    ]);
+  });
+
+  it('join words below the minimum length 9', () => {
+    const string = 'FOO BAR BAZ LOREM';
+
+    const result = splitStringIntoWords(string, {
+      minimumWordLength: 9,
+    });
+
+    expect(result).to.deep.equal([
+      'FOOBARBAZ',
+      'LOREM',
+    ]);
+  });
+
+  it('join words below the minimum length 10', () => {
+    const string = 'FOO BAR BAZ LOREM';
+
+    const result = splitStringIntoWords(string, {
+      minimumWordLength: 10,
+    });
+
+    expect(result).to.deep.equal([
+      'FOOBARBAZLOREM',
+    ]);
+  });
 });

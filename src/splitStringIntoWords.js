@@ -1,11 +1,34 @@
-function splitRecursively(string, {
-  delimiters = [' '],
-}) {
+function joinWords(words, minimumWordLength) {
+  const result = words.reduce(
+    ({ newWords, builtWord }, word) => (
+      builtWord.length < minimumWordLength
+        ? ({ builtWord: builtWord + word, newWords })
+        : ({ builtWord: word, newWords: [...newWords, builtWord] })
+    ),
+    { builtWord: '', newWords: [] },
+  );
+
+  return [
+    ...result.newWords,
+    ...(result.builtWord ? [result.builtWord] : []),
+  ];
+}
+
+function splitRecursively(string, options) {
+  const {
+    delimiters = [' '],
+    minimumWordLength,
+  } = options;
   if (!delimiters.length) {
-    return string.split(' ');
+    const words = string.split(' ');
+    if (minimumWordLength) {
+      return joinWords(words, minimumWordLength);
+    }
+
+    return words;
   }
 
-  return splitRecursively(string.split(delimiters[0]).join(' '), { delimiters: delimiters.slice(1) });
+  return splitRecursively(string.split(delimiters[0]).join(' '), { ...options, delimiters: delimiters.slice(1) });
 }
 
 function splitStringIntoWords(string, options = {}) {
