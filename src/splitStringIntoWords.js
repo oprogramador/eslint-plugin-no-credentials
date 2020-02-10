@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 function joinWords(words, minimumWordLength) {
   const result = words.reduce(
     ({ newWords, builtWord }, word) => (builtWord.length < minimumWordLength
@@ -22,7 +24,7 @@ function splitRecursively(originalString, string, options) {
   if (!delimiters.length) {
     let words = string.split(' ');
     if (shouldSplitCamelCase) {
-      words = words.map(word => word.split(/(?=[A-Z])/g)).flat();
+      words = _.flatten(words.map(word => word.split(/(?=[A-Z])/g)));
     }
     if (minimumWordLength) {
       words = joinWords(words, minimumWordLength);
