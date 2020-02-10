@@ -1,4 +1,4 @@
-import expect from 'eslint-plugin-no-credentials/tests/expect';
+import expect from 'eslint-plugin-no-credentials/tests-mocha/expect';
 import findSubstrings from 'eslint-plugin-no-credentials/findSubstrings';
 
 describe('findSubstrings', () => {

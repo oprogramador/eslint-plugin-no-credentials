@@ -1,5 +1,5 @@
 import calculateStrongEntropy from 'eslint-plugin-no-credentials/calculateStrongEntropy';
-import expect from 'eslint-plugin-no-credentials/tests/expect';
+import expect from 'eslint-plugin-no-credentials/tests-mocha/expect';
 
 describe('calculateStrongEntropy', () => {
   it('calculates strong entropy for an empty string', () => {

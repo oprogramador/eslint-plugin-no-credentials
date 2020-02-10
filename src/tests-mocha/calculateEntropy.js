@@ -1,5 +1,5 @@
 import calculateEntropy from 'eslint-plugin-no-credentials/calculateEntropy';
-import expect from 'eslint-plugin-no-credentials/tests/expect';
+import expect from 'eslint-plugin-no-credentials/tests-mocha/expect';
 
 describe('calculateEntropy', () => {
   it('calculates entropy for a', () => {

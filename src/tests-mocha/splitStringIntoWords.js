@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import expect from 'eslint-plugin-no-credentials/tests/expect';
+import expect from 'eslint-plugin-no-credentials/tests-mocha/expect';
 import splitStringIntoWords from 'eslint-plugin-no-credentials/splitStringIntoWords';
 
 describe('splitStringIntoWords', () => {
