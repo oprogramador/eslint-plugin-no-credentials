@@ -119,6 +119,12 @@ ruleTester.run('no-credentials', rule, {
     },
     {
       code: `
+      const number = 123;
+`,
+      options: [],
+    },
+    {
+      code: `
       const text = 'foo bar baz a-very-long-string';
 `,
       errors: [{ messageId: 'tooHighEntropy' }],

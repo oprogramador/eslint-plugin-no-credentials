@@ -3,6 +3,9 @@ import calculateStrongEntropy from 'eslint-plugin-no-credentials/calculateStrong
 import splitStringIntoWords from 'eslint-plugin-no-credentials/splitStringIntoWords';
 
 const inspectNode = ({ node, value, context }) => {
+  if (typeof value !== 'string') {
+    return;
+  }
   const {
     delimiters, minimumWordLength, minimumNumberOfWords, shouldSplitCamelCase, maximumEntropy = 5,
   } = context.options[0] || {};
