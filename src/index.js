@@ -24,7 +24,7 @@ const inspectNode = ({ node, value, context }) => {
 };
 
 const rules = {
-  'no-secrets': {
+  'no-credentials': {
     create(context) {
       const sourceCode = context.getSourceCode();
 

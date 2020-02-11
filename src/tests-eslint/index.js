@@ -1,11 +1,11 @@
 import { RuleTester } from 'eslint';
 import rules from 'eslint-plugin-no-credentials';
 
-const rule = rules['no-secrets'];
+const rule = rules['no-credentials'];
 
 const ruleTester = new RuleTester({ env: { es6: true } });
 
-ruleTester.run('no-secrets', rule, {
+ruleTester.run('no-credentials', rule, {
   invalid: [
     {
       code: `
