@@ -16,14 +16,17 @@ const inspectNode = ({ node, value, context }) => {
     shouldSplitCamelCase,
   });
   const entropies = _.zipObject(words, words.map(word => calculateStrongEntropy(word)));
-  const tooLowEntropies = _.filter(entropies, entropy => entropy > maximumEntropy);
-  if (tooLowEntropies.length) {
+  const tooLowEntropies = Object.entries(entropies).filter(([, entropy]) => entropy > maximumEntropy);
+  tooLowEntropies.forEach(([word, entropy]) => {
     context.report({
-      data: {},
+      data: {
+        entropy,
+        word,
+      },
       messageId: 'tooHighEntropy',
       node,
     });
-  }
+  });
 };
 
 const rules = {
@@ -52,14 +55,17 @@ const rules = {
               shouldSplitCamelCase,
             });
             const entropies = _.zipObject(words, words.map(word => calculateStrongEntropy(word)));
-            const tooLowEntropies = _.filter(entropies, entropy => entropy > maximumEntropy);
-            if (tooLowEntropies.length) {
+            const tooLowEntropies = Object.entries(entropies).filter(([, entropy]) => entropy > maximumEntropy);
+            tooLowEntropies.forEach(([word, entropy]) => {
               context.report({
-                data: {},
+                data: {
+                  entropy,
+                  word,
+                },
                 loc: comment.loc,
                 messageId: 'tooHighEntropy',
               });
-            }
+            });
           });
         },
         TemplateElement(node) {
@@ -69,7 +75,7 @@ const rules = {
     },
     meta: {
       messages: {
-        tooHighEntropy: 'too high entropy',
+        tooHighEntropy: 'too high entropy {{entropy}} : {{word}}',
       },
     },
   },
