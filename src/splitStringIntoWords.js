@@ -24,7 +24,9 @@ function splitRecursively(originalString, string, options) {
   if (!delimiters.length) {
     let words = string.split(' ');
     if (shouldSplitCamelCase) {
-      words = _.flatten(words.map(word => word.split(/(?=[A-Z])/g)));
+      words = _.flatten(words.map(
+        word => (/[a-z]/.test(word) && /^[a-zA-Z]+$/.test(word) ? word.split(/(?=[A-Z])/g) : [word]),
+      ));
     }
     if (minimumWordLength) {
       words = joinWords(words, minimumWordLength);

@@ -238,6 +238,42 @@ describe('splitStringIntoWords', () => {
     ]);
   });
 
+  it('does not split camelCase if it contains any non-letters', () => {
+    const string = 'fooBarBaz1Lorem';
+
+    const result = splitStringIntoWords(string, {
+      shouldSplitCamelCase: true,
+    });
+
+    expect(result).to.deep.equal([
+      'fooBarBaz1Lorem',
+    ]);
+  });
+
+  it('does not split camelCase if it contains only upper case', () => {
+    const string = 'ABCDEFGHI';
+
+    const result = splitStringIntoWords(string, {
+      shouldSplitCamelCase: true,
+    });
+
+    expect(result).to.deep.equal([
+      'ABCDEFGHI',
+    ]);
+  });
+
+  it('does not split camelCase if it contains only lower case', () => {
+    const string = 'abcdefghi';
+
+    const result = splitStringIntoWords(string, {
+      shouldSplitCamelCase: true,
+    });
+
+    expect(result).to.deep.equal([
+      'abcdefghi',
+    ]);
+  });
+
   it('splits camelCase', () => {
     const string = 'fooBarBazLorem';
 

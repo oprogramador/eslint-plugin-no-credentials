@@ -78,6 +78,20 @@ ruleTester.run('no-credentials', rule, {
       errors: [{ messageId: 'tooHighEntropy' }],
       options: [{ minimumNumberOfWords: 6, minimumWordLength: 4, shouldSplitCamelCase: true }],
     },
+    {
+      code: `
+      const source = 'ABCDEF';
+`,
+      errors: [{ messageId: 'tooHighEntropy' }],
+      options: [
+        {
+          delimiters: [' ', '/', '-', '_', '.'],
+          maximumEntropy: 4,
+          minimumWordLength: 5,
+          shouldSplitCamelCase: true,
+        },
+      ],
+    },
   ],
   valid: [
     {
@@ -150,6 +164,20 @@ ruleTester.run('no-credentials', rule, {
 `,
       errors: [{ messageId: 'tooHighEntropy' }],
       options: [{ minimumNumberOfWords: 5, minimumWordLength: 4, shouldSplitCamelCase: true }],
+    },
+    {
+      code: `
+      const source = 'ABCDEF';
+`,
+      errors: [{ messageId: 'tooHighEntropy' }],
+      options: [
+        {
+          delimiters: [' ', '/', '-', '_', '.'],
+          maximumEntropy: 5,
+          minimumWordLength: 5,
+          shouldSplitCamelCase: true,
+        },
+      ],
     },
   ],
 });
