@@ -72,4 +72,5 @@ const rules = {
   },
 };
 
-export default rules;
+export { rules };
+export default null;

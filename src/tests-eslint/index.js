@@ -1,5 +1,5 @@
 import { RuleTester } from 'eslint';
-import rules from 'eslint-plugin-no-credentials';
+import { rules } from 'eslint-plugin-no-credentials';
 
 const rule = rules['no-credentials'];
 
