@@ -4,7 +4,7 @@
   "description": "An ESlint plugin checking for any hardcoded credentials",
   "main": "build/index.js",
   "scripts": {
-    "build": "rm -rf build && babel --copy-files src --out-dir build --ignore tests/",
+    "build": "rm -rf build && babel --copy-files src --out-dir build --ignore tests-eslint/,tests-mocha/",
     "lint": "eslint src",
     "prepublishOnly": "npm run build",
     "test-mocha": "mocha -r @babel/register --recursive src/tests-mocha --timeout 5000",
