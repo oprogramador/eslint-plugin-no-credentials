@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-no-credentials",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "description": "An ESlint plugin checking for any hardcoded credentials",
   "main": "build/index.js",
   "scripts": {
