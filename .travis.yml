@@ -6,6 +6,7 @@ node_js:
   - 12
   - 14
   - 16
+  - 18
 script:
   - yarn install --non-interactive
   - yarn lint
@@ -15,7 +16,7 @@ jobs:
     - stage: deploy
       on:
         branch: master
-      node_js: 14
+      node_js: 18
       script:
         - yarn install --non-interactive
         - npx semantic-release
