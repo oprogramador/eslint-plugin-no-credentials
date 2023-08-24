@@ -6,6 +6,5 @@
   ],
   "schedule": ["after 7am on saturday"],
   "updateNotScheduled": false,
-  "schedule": ["after 11pm on sunday"],
   "rangeStrategy": "bump"
 }
